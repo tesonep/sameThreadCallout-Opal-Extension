@@ -90,7 +90,7 @@ TFCalloutMethodBuilder >> generateFFICalloutUsingBytecode: builder spec: functio
 
 	"convert in case return type needs it. And return reseult"
 
-	functionSpec returnType resolvedType isVoid ifTrue: [ 
+	functionSpec returnType resolvedType tfExternalTypeWithArity isVoid ifTrue: [ 
 		^ builder 
 			pushReceiver;
 			returnTop ].

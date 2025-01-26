@@ -62,3 +62,25 @@ FFIFunctionParserTest >> testParseFunction5 [
 	method1 := builder generateMethodFromSpec: functionSpec1.
 
 ]
+
+{ #category : '*SameThreadCallout-Extensions' }
+FFIFunctionParserTest >> testParseFunction6 [
+
+	| functionSpec1 builder method1 |
+	functionSpec1 := self newParser parseNamedFunction:
+		                 #( void* objc_msgSend(void* d_, void* _b)).
+
+	functionSpec1 resolveUsing: resolver.
+
+
+	builder := (FFIBackend current calloutAPIClass inContext: nil)
+		           newBuilder
+						useBytecode: true;
+		           sender: ctx;
+		           yourself.
+	"signature: functionSignature;
+			sender: sender."
+	1halt.
+	method1 := builder generateMethodFromSpec: functionSpec1.
+
+]
