@@ -1,10 +1,13 @@
 Extension { #name : 'OCIRBytecodeGenerator' }
 
 { #category : '*SameThreadCallout-Extensions' }
-OCIRBytecodeGenerator >> sameThreadCallout: aTFExternalFunction [ 
-	
-	| literalIndex |
+OCIRBytecodeGenerator >> sameThreadCallout: aTFExternalFunction [
 
+	| literalIndex |
 	literalIndex := self literalIndexOf: aTFExternalFunction.
-	^ encoder genSameThreadCallout: literalIndex.
+
+	stack pop: aTFExternalFunction definition parameterTypes size.
+	aTFExternalFunction definition returnType isVoid ifFalse: [ stack push ].
+
+	^ encoder genSameThreadCallout: literalIndex
 ]

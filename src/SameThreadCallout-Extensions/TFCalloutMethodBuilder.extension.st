@@ -3,7 +3,7 @@ Extension { #name : 'TFCalloutMethodBuilder' }
 { #category : '*SameThreadCallout-Extensions' }
 TFCalloutMethodBuilder >> canUseBytecode: aRunner [ 
 
-	^ aRunner = TFSameThreadRunner uniqueInstance and: false.
+	^ aRunner = TFSameThreadRunner uniqueInstance and: useBytecode.
 
 ]
 
@@ -95,4 +95,29 @@ TFCalloutMethodBuilder >> generateFFICalloutUsingBytecode: builder spec: functio
 		resultTempVar: #result
 		context: sender
 		inCallout: self requestor
+]
+
+{ #category : '*SameThreadCallout-Extensions' }
+TFCalloutMethodBuilder >> initialize [ 
+	
+	super initialize.
+	useBytecode := self class useBytecode
+]
+
+{ #category : '*SameThreadCallout-Extensions' }
+TFCalloutMethodBuilder class >> useBytecode [
+
+	^ UseBytecode ifNil: [ UseBytecode := false ]
+]
+
+{ #category : '*SameThreadCallout-Extensions' }
+TFCalloutMethodBuilder class >> useBytecode: aValue [
+
+	UseBytecode := aValue
+]
+
+{ #category : '*SameThreadCallout-Extensions' }
+TFCalloutMethodBuilder >> useBytecode: aValue [
+
+	useBytecode := aValue
 ]
