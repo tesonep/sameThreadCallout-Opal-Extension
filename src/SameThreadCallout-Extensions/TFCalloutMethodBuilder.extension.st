@@ -90,6 +90,11 @@ TFCalloutMethodBuilder >> generateFFICalloutUsingBytecode: builder spec: functio
 
 	"convert in case return type needs it. And return reseult"
 
+	functionSpec returnType resolvedType isVoid ifTrue: [ 
+		^ builder 
+			pushReceiver;
+			returnTop ].
+
 	^ functionSpec returnType
 		emitReturn: builder
 		resultTempVar: #result
